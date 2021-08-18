@@ -7,6 +7,7 @@
 
 int main()
 {
+
     LOG log;
     log.init();
     DEBUG("1234");
