@@ -14,8 +14,9 @@ using namespace log4cplus;
 
 
 void LOG::init() {
-
-    string file = path_ + file_name_;
+    log4cplus::Initializer initializer_;
+//    string file = path_ + file_name_;
+    string file = "log.txt";
     log4cplus::SharedAppenderPtr fileAppender(new log4cplus::FileAppender(
             LOG4CPLUS_TEXT(file),
             std::ios_base::app

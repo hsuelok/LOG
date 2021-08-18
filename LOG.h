@@ -33,8 +33,6 @@ public:
 private:
     string file_name_;
     string path_;
-    log4cplus::Initializer initializer_;
-
 
 };
 
