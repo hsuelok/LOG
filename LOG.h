@@ -12,7 +12,7 @@
 #include <log4cplus/initializer.h>
 #include <log4cplus/log4cplus.h>
 
-#define DEBUG(debug) LOG4CPLUS_DEBUG(logger_, LOG4CPLUS_TEXT(debug))
+#define DEBUG(debug) LOG4CPLUS_DEBUG(LOG::logger_, LOG4CPLUS_TEXT(debug))
 #define INFO(info) LOG4CPLUS_DEBUG(logger_, LOG4CPLUS_TEXT(info))
 #define ERROR(error) LOG4CPLUS_ERROR(logger_, LOG4CPLUS_TEXT(error))
 #define FATAL(fatal) LOG4CPLUS_FATAL(logger_, LOG4CPLUS_TEXT(fatal))
@@ -28,7 +28,7 @@ public:
     void init();
     void set_file_name(const string& file_name);
     void set_path(const string& path);
-    log4cplus::Logger logger_;
+    static log4cplus::Logger logger_;
 
 private:
     string file_name_;
