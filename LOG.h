@@ -28,12 +28,13 @@ public:
     void init();
     void set_file_name(const string& file_name);
     void set_path(const string& path);
+    log4cplus::Logger logger_;
 
 private:
     string file_name_;
     string path_;
     log4cplus::Initializer initializer_;
-    log4cplus::Logger logger_;
+
 
 };
 
