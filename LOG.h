@@ -32,11 +32,15 @@ public:
 
     // 获得日志实例
     static LOG& instance();
+    static LOG& instance(const char* file_name);
+    static LOG& instance(const char* pth, const char* file_name);
 
     static Logger _logger;
 
 private:
     LOG();
+    LOG(const char* file_name);
+    LOG(const char* pth, const char* file_name);
 
     virtual ~LOG();
 

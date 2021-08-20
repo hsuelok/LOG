@@ -8,7 +8,8 @@
 
 
 int main() {
-    if (!LOG::instance().open_log())
+    const char* file_name = "asd";
+    if (!LOG::instance(file_name).open_log())
     {
         std::cout << "Log::open_log() failed" << std::endl;
         return false;
