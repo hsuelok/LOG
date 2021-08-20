@@ -24,6 +24,8 @@ public:
     void set_path(const string& path);
     static void debug(const string& str);
     static log4cplus::Logger logger_;
+    static log4cplus::Initializer initializer_;
+    static log4cplus::SharedAppenderPtr fileAppender_;
 
 private:
     string file_name_;
