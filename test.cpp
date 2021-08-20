@@ -8,6 +8,5 @@
 int main()
 {
     LOG log;
-    LOG::debug("swe");
-    DEBUG("1234");
+    LOG::debug("1234");
 }

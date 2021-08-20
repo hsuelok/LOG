@@ -15,7 +15,7 @@
 using std::string;
 using namespace log4cplus;
 
-#define DEBUG(str) LOG::debug(str)
+#define DEBUG(str) LOG.debug(str)
 
 class LOG {
 public:
