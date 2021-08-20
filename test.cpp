@@ -8,5 +8,6 @@
 int main()
 {
     LOG log;
+    LOG::logger_ = log4cplus::Logger();
     LOG::debug("1234");
 }
