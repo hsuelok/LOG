@@ -3,11 +3,12 @@
 //
 
 #include "LOG.h"
+#include <log4cplus/logger.h>
 
-
+log4cplus::Logger LOG::logger_;
 int main()
 {
     LOG log;
-    LOG::logger_ = log4cplus::Logger();
-    LOG::debug("1234");
+    log.debug("1234");
+    return 0;
 }

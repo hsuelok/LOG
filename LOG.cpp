@@ -5,6 +5,8 @@
 
 
 #include "LOG.h"
+#include <iostream>
+using namespace std;
 
 // LOG Level: FATAL, ERROR, WARN, INFO, DEBUG, TRACE.
 
@@ -24,7 +26,7 @@ LOG::LOG(){
     fileAppender->setName(LOG4CPLUS_TEXT("file"));
     log4cplus::tstring pattern = LOG4CPLUS_TEXT("%D{%m/%d/%y %H:%M:%S,%Q} %-5p %c - %m [%l]%n");
     fileAppender->setLayout(std::unique_ptr<log4cplus::Layout>(new log4cplus::PatternLayout(pattern)));
-    logger_ = log4cplus::Logger();
+
     logger_ = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT ("LOG"));
     logger_.setLogLevel(log4cplus::INFO_LOG_LEVEL);
     logger_.addAppender(fileAppender);
@@ -33,6 +35,7 @@ LOG::LOG(){
 }
 
 void LOG::debug(const string& str){
+    cout << "debug!!!" << endl;
     LOG4CPLUS_INFO(logger_, LOG4CPLUS_TEXT(str));
 }
 
