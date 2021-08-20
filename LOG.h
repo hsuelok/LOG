@@ -12,24 +12,22 @@
 #include <log4cplus/initializer.h>
 #include <log4cplus/log4cplus.h>
 
-#define DEBUG(str) debug(str);
-
-
-
 using std::string;
 using namespace log4cplus;
 
+#define DEBUG(str) LOG::debug(str)
+
 class LOG {
 public:
-    void init();
+    LOG();
     void set_file_name(const string& file_name);
     void set_path(const string& path);
-    void debug(string str);
+    static void debug(const string& str);
 
 private:
     string file_name_;
     string path_;
-    log4cplus::Logger logger_;
+    static log4cplus::Logger logger_;
 
 };
 

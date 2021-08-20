@@ -12,10 +12,9 @@
 using namespace log4cplus;
 
 
-
-void LOG::init() {
+LOG::LOG(){
     log4cplus::Initializer initializer_;
-//    string file = path_ + file_name_;
+    //    string file = path_ + file_name_;
     string file = "log.txt";
     log4cplus::SharedAppenderPtr fileAppender(new log4cplus::FileAppender(
             LOG4CPLUS_TEXT(file),
@@ -25,16 +24,15 @@ void LOG::init() {
     fileAppender->setName(LOG4CPLUS_TEXT("file"));
     log4cplus::tstring pattern = LOG4CPLUS_TEXT("%D{%m/%d/%y %H:%M:%S,%Q} %-5p %c - %m [%l]%n");
     fileAppender->setLayout(std::unique_ptr<log4cplus::Layout>(new log4cplus::PatternLayout(pattern)));
-//    log4cplus::Logger logger_;
+    //    log4cplus::Logger logger_;
     logger_ = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT ("LOG"));
     logger_.setLogLevel(log4cplus::INFO_LOG_LEVEL);
     logger_.addAppender(fileAppender);
     logger_.setLogLevel(log4cplus::ALL_LOG_LEVEL);
-
 }
 
-void LOG::debug(string str){
-    LOG4CPLUS_DEBUG(logger_, LOG4CPLUS_TEXT(str));
+void LOG::debug(const string& str){
+    LOG4CPLUS_INFO(logger_, LOG4CPLUS_TEXT(str));
 }
 
 //void LOG::init() {

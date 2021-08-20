@@ -7,9 +7,7 @@
 
 int main()
 {
-
     LOG log;
-    log.init();
+    LOG::debug("swe");
     DEBUG("1234");
-    return 0;
 }
