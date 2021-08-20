@@ -4,18 +4,15 @@
 
 #include "LOG.h"
 #include <log4cplus/logger.h>
+#include <iostream>
 
-log4cplus::Logger LOG::logger_;
-log4cplus::Initializer initializer_;
-string file = "log.txt";
-log4cplus::SharedAppenderPtr fileAppender_(new log4cplus::FileAppender(
-                                                   LOG4CPLUS_TEXT(file),
-                                                   std::ios_base::app
-                                           )
-);
 
 int main() {
-    LOG log;
-    log.debug("1234");
+    if (!LOG::instance().open_log())
+    {
+        std::cout << "Log::open_log() failed" << std::endl;
+        return false;
+    }
+    INFO("Server init succ");
     return 0;
 }

@@ -5,57 +5,63 @@
 
 
 #include "LOG.h"
-#include <iostream>
-using namespace std;
+#include <memory>
 
 // LOG Level: FATAL, ERROR, WARN, INFO, DEBUG, TRACE.
 
+Logger LOG::_logger = log4cplus::Logger::getInstance("main_log");
 
-using namespace log4cplus;
-
+//log4cplus::Logger LOG::logger_;
+//log4cplus::Initializer initializer_;
+//string file = "log.txt";
+//log4cplus::FileAppender *appender_ = new log4cplus::FileAppender(LOG4CPLUS_TEXT(file),
+//                                                                 std::ios_base::app);
+//log4cplus::SharedAppenderPtr fileAppender_(appender_);
 
 LOG::LOG(){
-    //    string file = path_ + file_name_;
-    fileAppender_->setName(LOG4CPLUS_TEXT("file"));
-    log4cplus::tstring pattern = LOG4CPLUS_TEXT("%D{%m/%d/%y %H:%M:%S,%Q} %-5p %c - %m [%l]%n");
-    fileAppender_->setLayout(std::unique_ptr<log4cplus::Layout>(new log4cplus::PatternLayout(pattern)));
-
-    logger_ = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT ("LOG"));
-    logger_.setLogLevel(log4cplus::INFO_LOG_LEVEL);
-    logger_.addAppender(fileAppender_);
-    logger_.setLogLevel(log4cplus::ALL_LOG_LEVEL);
-    LOG4CPLUS_INFO(logger_, LOG4CPLUS_TEXT("hello world!"));
+    snprintf(_log_path, sizeof(_log_path), "%s", "/root/share/wx_pay/log");
+    snprintf(_log_name, sizeof(_log_name), "%s/%s.%s", _log_path, "app", "log");
 }
 
-void LOG::debug(const string& str){
-    cout << "debug!!!" << endl;
-    LOG4CPLUS_INFO(logger_, LOG4CPLUS_TEXT(str));
+LOG::~LOG(){
+
 }
 
-//void LOG::init() {
-//    log4cplus::Initializer initializer;
-//    log4cplus::SharedAppenderPtr consoleAppender(new log4cplus::ConsoleAppender);
-//
-//    string file = path_ + file_name_;
-//    log4cplus::SharedAppenderPtr fileAppender(new log4cplus::FileAppender(
-//            LOG4CPLUS_TEXT(file),
-//            std::ios_base::app
-//            )
-//            );
-//    fileAppender->setName(LOG4CPLUS_TEXT("file"));
-//    log4cplus::tstring pattern = LOG4CPLUS_TEXT("%D{%m/%d/%y %H:%M:%S,%Q} %-5p %c - %m [%l]%n");
-//    fileAppender->setLayout(std::unique_ptr<log4cplus::Layout>(new log4cplus::PatternLayout(pattern)));
-//    log4cplus::Logger logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT ("LOG"));
-//    logger.setLogLevel(log4cplus::INFO_LOG_LEVEL);
-//    logger.addAppender(fileAppender);
-//    LOG4CPLUS_INFO(logger, LOG4CPLUS_TEXT("Hello world"));
-//}
-
-void LOG::set_file_name(const string &file_name) {
-    file_name_ = file_name;
+LOG& LOG::instance() {
+    static LOG log;
+    return log;
 }
 
-void LOG::set_path(const string &path) {
-    path_ = path;
-}
+bool LOG::open_log()
+{
 
+    int Log_level = 0;
+
+    /* step 1: Instantiate an appender object */
+    SharedAppenderPtr _append(new FileAppender(_log_name));
+    _append->setName("file log test");
+
+    /* step 2: Instantiate a layout object */
+    std::string pattern = "[%p] [%d{%m/%d/%y %H:%M:%S}] [%t] - %m [%F:%L] %n";
+//    std::unique_ptr<Layout> _layout(new PatternLayout(pattern));
+
+    //    std::auto_ptr<Layout> pTTCLayout(new TTCCLayout());
+    /* step 3: Attach the layout object to the appender */
+//    _append->setLayout(_layout);
+    _append->setLayout(std::unique_ptr<Layout>(new PatternLayout(pattern)));
+    //    _append->setLayout(pTTCLayout);
+    /* step 4: Instantiate a logger object */
+
+    /* step 5: Attach the appender object to the logger  */
+    LOG::_logger.addAppender(_append);
+
+    /* step 6: Set a priority for the logger  */
+    LOG::_logger.setLogLevel(Log_level);
+
+
+
+    return true;
+
+
+    return true;
+}

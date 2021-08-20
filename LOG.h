@@ -4,34 +4,45 @@
 
 #ifndef LOG_LOG_H
 #define LOG_LOG_H
-#include <string>
-
-#include <log4cplus/logger.h>
+#include "log4cplus/loglevel.h"
+#include "log4cplus/ndc.h"
+#include "log4cplus/logger.h"
+#include "log4cplus/configurator.h"
+#include "iomanip"
+#include "log4cplus/fileappender.h"
+#include "log4cplus/layout.h"
 #include <log4cplus/loggingmacros.h>
-#include <log4cplus/configurator.h>
-#include <log4cplus/initializer.h>
-#include <log4cplus/log4cplus.h>
 
-using std::string;
 using namespace log4cplus;
+using namespace log4cplus::helpers;
 
-#define DEBUG(str) LOG::debug(str)
+#define PATH_SIZE 100
+
+//日志封装
+#define TRACE(p) LOG4CPLUS_TRACE(LOG::_logger, p)
+#define DEBUG(p) LOG4CPLUS_DEBUG(LOG::_logger, p)
+#define INFO(p) LOG4CPLUS_INFO(LOG::_logger, p)
+#define WARNING(p) LOG4CPLUS_WARN(LOG::_logger, p)
+#define FATAL(p) LOG4CPLUS_ERROR(LOG::_logger, p)
 
 class LOG {
 public:
-    LOG();
-    void set_file_name(const string& file_name);
-    void set_path(const string& path);
-    static void debug(const string& str);
-    static log4cplus::Logger logger_;
-    static log4cplus::Initializer initializer_;
-    static log4cplus::SharedAppenderPtr fileAppender_;
+    // 打开日志
+    bool open_log();
+
+    // 获得日志实例
+    static LOG& instance();
+
+    static Logger _logger;
 
 private:
-    string file_name_;
-    string path_;
+    LOG();
 
+    virtual ~LOG();
 
+    //log文件路径及名称
+    char _log_path[PATH_SIZE];
+    char _log_name[PATH_SIZE];
 };
 
 
