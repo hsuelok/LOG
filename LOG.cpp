@@ -58,11 +58,11 @@ bool LOG::open_log()
     /* step 2: Instantiate a layout object */
     std::string pattern = "[%p] [%D{%m/%d/%y %H:%M:%S, %Q}] [%t] - %m [%F:%L] %n";
 
-//    std::unique_ptr<Layout> _layout(new PatternLayout(pattern));
+    //    std::unique_ptr<Layout> _layout(new PatternLayout(pattern));
 
     //    std::auto_ptr<Layout> pTTCLayout(new TTCCLayout());
     /* step 3: Attach the layout object to the appender */
-//    _append->setLayout(_layout);
+    //    _append->setLayout(_layout);
     _append->setLayout(std::unique_ptr<Layout>(new PatternLayout(pattern)));
     //    _append->setLayout(pTTCLayout);
     /* step 4: Instantiate a logger object */
