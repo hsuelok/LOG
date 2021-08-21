@@ -11,12 +11,6 @@
 
 Logger LOG::_logger = log4cplus::Logger::getInstance("main_log");
 
-//log4cplus::Logger LOG::logger_;
-//log4cplus::Initializer initializer_;
-//string file = "log.txt";
-//log4cplus::FileAppender *appender_ = new log4cplus::FileAppender(LOG4CPLUS_TEXT(file),
-//                                                                 std::ios_base::app);
-//log4cplus::SharedAppenderPtr fileAppender_(appender_);
 
 LOG::LOG(){
     snprintf(_log_path, sizeof(_log_path), "%s", ".");
